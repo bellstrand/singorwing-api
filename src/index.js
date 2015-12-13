@@ -23,12 +23,12 @@ app.use(session({
 passport(app);
 
 app.use(cors({ credentials: true, origin: true }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(router());
 
-app.use('/images', express.static('images'));
+app.use('/' + config.storage, express.static('images'));
 
 app.set('port', config.port);
 

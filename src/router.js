@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {auth, admin} from './middleware/auth';
+import {auth, admin, sysadmin} from './middleware/auth';
 import login from './api/login';
 import users from './api/users';
 import artists from './api/artists';
@@ -11,9 +11,9 @@ export default function() {
 
 	api.use('/', login());
 
-	api.use('/users', admin, users());
-	api.use('/artists', auth, artists());
-	api.use('/songs', auth, songs());
+	api.use('/users', sysadmin, users());
+	api.use('/artists', admin, artists());
+	api.use('/songs', admin, songs());
 
 	api.get('/', (req, res) => {
 		res.json({

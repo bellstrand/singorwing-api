@@ -13,7 +13,7 @@ export default function() {
 	});
 
 	api.get('/:id', (req, res) => {
-		Songs.findOne({ _id: req.params.id }).populate('artist').then(song => {
+		Songs.findOne({ _id: req.params.id }).then(song => {
 			res.json(song);
 		}).catch(error => {
 			res.send(error);

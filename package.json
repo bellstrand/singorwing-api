@@ -29,6 +29,7 @@
     "cors": "^2.7.1",
     "express": "^5.0.0-alpha.2",
     "express-session": "^1.12.1",
+    "fs-extra": "^0.26.2",
     "mongoose": "^4.2.9",
     "nodemon": "^1.8.1",
     "passport": "^0.3.2",

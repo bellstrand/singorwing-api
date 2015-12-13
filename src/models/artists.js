@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 
 let artists = new mongoose.Schema({
 	name: { type: String, required: true },
-	genres: [String],
+	genre: String,
 	origin: String,
 	active: String,
-	images: [String]
+	image: String
 });
 
 export default mongoose.model('Artists', artists);
