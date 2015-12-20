@@ -9,7 +9,7 @@ export default function() {
 		Users.find().then(users => {
 			res.json(users);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -17,7 +17,7 @@ export default function() {
 		Users.findOne({ _id: req.params.id }).then(user => {
 			res.json(user);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -27,10 +27,10 @@ export default function() {
 			Users.create(req.body).then(user => {
 				res.json(user);
 			}).catch(error => {
-				res.send(error);
+				res.status(500).send(error);
 			});
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -40,7 +40,7 @@ export default function() {
 				req.body.password = hash;
 				update(req, res);
 			}).catch(error => {
-				res.send(error);
+				res.status(500).send(error);
 			});
 		} else {
 			delete req.body.password;
@@ -52,7 +52,7 @@ export default function() {
 		Users.remove({ _id: req.params.id }).then(user => {
 			res.json({ message: 'Successfully deleted' });
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -67,9 +67,9 @@ function update(req, res) {
 		user.save().then(() => {
 			res.json(user);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	}).catch(error => {
-		res.send(error);
+		res.status(500).send(error);
 	});
 }

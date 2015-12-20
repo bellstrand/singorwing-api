@@ -10,7 +10,7 @@ export default function() {
 		Artists.find().then(artists => {
 			res.json(artists);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -18,7 +18,7 @@ export default function() {
 		Artists.findOne({ _id: req.params.id }).then(artist => {
 			res.json(artist);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -32,7 +32,7 @@ export default function() {
 		Artists.create(req.body).then(artist => {
 			res.json(artist);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -51,10 +51,10 @@ export default function() {
 			artist.save().then(() => {
 				res.json(artist);
 			}).catch(error => {
-				res.send(error);
+				res.status(500).send(error);
 			});
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -63,7 +63,7 @@ export default function() {
 			removeFile(artist.image);
 			res.json({ message: 'Successfully deleted' });
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 

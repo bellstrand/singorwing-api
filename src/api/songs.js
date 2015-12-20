@@ -8,7 +8,7 @@ export default function() {
 		Songs.find().populate('artist').then(songs => {
 			res.json(songs);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -16,7 +16,7 @@ export default function() {
 		Songs.findOne({ _id: req.params.id }).then(song => {
 			res.json(song);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -24,7 +24,7 @@ export default function() {
 		Songs.create(req.body).then(song => {
 			res.json(song);
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -36,10 +36,10 @@ export default function() {
 			song.save().then(() => {
 				res.json(song);
 			}).catch(error => {
-				res.send(error);
+				res.status(500).send(error);
 			});
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
@@ -47,7 +47,7 @@ export default function() {
 		Songs.remove({ _id: req.params.id }).then(song => {
 			res.json({ message: 'Successfully deleted' });
 		}).catch(error => {
-			res.send(error);
+			res.status(500).send(error);
 		});
 	});
 
