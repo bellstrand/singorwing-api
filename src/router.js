@@ -9,13 +9,13 @@ import songs from './api/songs';
 export default function() {
 	let api = Router();
 
-	api.use('/', login());
+	api.use('/api/', login());
 
-	api.use('/users', sysadmin, users());
-	api.use('/artists', admin, artists());
-	api.use('/songs', admin, songs());
+	api.use('/api/users', sysadmin, users());
+	api.use('/api/artists', admin, artists());
+	api.use('/api/songs', admin, songs());
 
-	api.get('/', (req, res) => {
+	api.get('/api/', (req, res) => {
 		res.json({
 			version: '0.1'
 		});
