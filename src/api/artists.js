@@ -25,7 +25,7 @@ export default function() {
 	api.post('', (req, res) => {
 		if(req.body.base64Image) {
 			let matches = req.body.base64Image.match(/^data:image\/([A-Za-z]+);base64,(.+)$/),
-				filename = req.body.name + '-' + new Date().getTime() + '.' + matches[1];
+				filename = replaceSpecialChars(req.body.name) + '-' + new Date().getTime() + '.' + matches[1];
 			saveImage('artists/' + filename, matches[2]);
 			req.body.image = 'artists/' + filename;
 		}
@@ -40,7 +40,7 @@ export default function() {
 		Artists.findOne({ _id: req.params.id }).then(artist => {
 			if(req.body.base64Image) {
 				let matches = req.body.base64Image.match(/^data:image\/([A-Za-z]+);base64,(.+)$/),
-					filename = req.body.name + '-' + new Date().getTime() + '.' + matches[1];
+					filename = replaceSpecialChars(req.body.name) + '-' + new Date().getTime() + '.' + matches[1];
 				removeFile(artist.image);
 				saveImage('artists/' + filename, matches[2]);
 				artist.image = 'artists/' + filename;
@@ -86,4 +86,16 @@ function removeFile(url) {
 			}
 		});
 	}
+}
+
+function replaceSpecialChars(string) {
+	string = string.toLowerCase();
+	string = string.replace(/[áàäâãå]/g, 'a');
+	string = string.replace(/[óòöôõ]/g, 'o');
+	string = string.replace(/[éèëê]/g, 'e');
+	string = string.replace(/[úùüû]/g, 'u');
+	string = string.replace(/[íìïî]/g, 'i');
+	string = string.replace(/[^a-z0-9]/g, '-');
+	string = string.replace(/-+/g, '-');
+	return string;
 }
