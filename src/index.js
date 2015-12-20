@@ -1,13 +1,15 @@
 import express from 'express';
-import session from 'express-session';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import session from 'express-session';
+import connectMongo from 'connect-mongo';
 import cors from 'cors';
 import router from './router';
 import passport from './middleware/passport';
 import config from './config/config';
 
-let app = express();
+let app = express(),
+	MongoStore = connectMongo(session);
 
 mongoose.connect(config.mongodb);
 mongoose.Promise = global.Promise;
@@ -17,7 +19,8 @@ app.use(session({
 	name: config.session.name,
 	resave: false,
 	rolling: true,
-	saveUninitialized: false
+	saveUninitialized: false,
+	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 passport(app);

@@ -25,6 +25,7 @@
   "devDependencies": {
     "babel-cli": "^6.3.13",
     "babel-preset-es2015": "^6.3.13",
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
     "cors": "^2.7.1",
     "express": "^5.0.0-alpha.2",

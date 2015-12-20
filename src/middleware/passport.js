@@ -14,14 +14,18 @@ export default function(app) {
 	});
 
 	passport.use(new passportLocal.Strategy((username, password, done) => {
-		Users.findOne({username: username}, (err, user) => {
-			if(err) {
-				return done(err);
-			} else if(!user || !user.authenticate(password)) {
-				return done(null, false);
+		Users.findOne({username: username}).select('password').then(user => {
+			if(user) {
+				user.authenticate(password).then(() => {
+					return done(null, user);
+				}).catch(error => {
+					return done(error);
+				});
 			} else {
-				return done(null, user);
+				return done(null, false);
 			}
+		}).catch(error => {
+			return done(error);
 		});
 	}));
 

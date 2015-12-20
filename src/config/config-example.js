@@ -4,7 +4,9 @@ export default {
 	mongodb: 'mongodb://localhost:27017/singorwing',
 
 	session: {
-		name: 'singorwing-api',
-		secret: 'secret key'
-	}
+		name: 'singorwing-api-session',
+		secret: 'singorwing-api-secret'
+	},
+
+	storage: 'storage'
 }

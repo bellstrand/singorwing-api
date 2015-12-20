@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 let artists = new mongoose.Schema({
-	name: { type: String, required: true },
+	name: { type: String, required: true, unique: true, trim: true },
+	difficulty: { type: Number, required: true, min: 1, max: 10 },
 	genre: String,
-	decade: String,
-	origin: String,
+	decade: Number,
 	image: String,
 	language: String,
 	members: String,
