@@ -15,7 +15,7 @@ export default function() {
 	api.use('/api/artists', admin, artists());
 	api.use('/api/songs', admin, songs());
 
-	api.get('/api/', (req, res) => {
+	api.get('/api', (req, res) => {
 		res.json({
 			version: '0.1'
 		});

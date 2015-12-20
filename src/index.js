@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(router());
 
-app.use('/' + config.storage, express.static('images'));
+app.use('/images', express.static(__dirname + '/../' + config.storage));
 
 app.set('port', config.port);
 
