@@ -5,7 +5,7 @@ export default function() {
 	let api = Router();
 
 	api.get('', (req, res) => {
-		Songs.find().populate('artist').then(songs => {
+		Songs.find().populate('artist').sort('name').then(songs => {
 			res.json(songs);
 		}).catch(error => {
 			res.status(500).send(error);

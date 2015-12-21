@@ -7,7 +7,7 @@ export default function() {
 	let api = Router();
 
 	api.get('', (req, res) => {
-		Artists.find().then(artists => {
+		Artists.find().sort('name').then(artists => {
 			res.json(artists);
 		}).catch(error => {
 			res.status(500).send(error);

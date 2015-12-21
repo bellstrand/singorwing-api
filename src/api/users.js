@@ -6,7 +6,7 @@ export default function() {
 	let api = Router();
 
 	api.get('', (req, res) => {
-		Users.find().then(users => {
+		Users.find().sort('username').then(users => {
 			res.json(users);
 		}).catch(error => {
 			res.status(500).send(error);
