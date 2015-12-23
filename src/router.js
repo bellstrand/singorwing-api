@@ -4,7 +4,7 @@ import login from './api/login';
 import users from './api/users';
 import artists from './api/artists';
 import songs from './api/songs';
-
+import findSongs from './api/find-songs';
 
 export default function() {
 	let api = Router();
@@ -14,6 +14,7 @@ export default function() {
 	api.use('/api/users', sysadmin, users());
 	api.use('/api/artists', admin, artists());
 	api.use('/api/songs', admin, songs());
+	api.use('/api/find-songs', admin, findSongs());
 
 	api.get('/api', (req, res) => {
 		res.json({
