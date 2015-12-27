@@ -6,6 +6,7 @@ import artists from './api/artists';
 import songs from './api/songs';
 import findSongs from './api/find-songs';
 import duelThemes from './api/duel-themes';
+import intros from './api/intros';
 
 export default function() {
 	let api = Router();
@@ -17,6 +18,7 @@ export default function() {
 	api.use('/api/songs', admin, songs());
 	api.use('/api/find-songs', admin, findSongs());
 	api.use('/api/duel-themes', admin, duelThemes());
+	api.use('/api/intros', admin, intros());
 
 	api.get('/api', (req, res) => {
 		res.json({
