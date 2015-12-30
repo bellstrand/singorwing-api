@@ -12,6 +12,30 @@ export default function() {
 		});
 	});
 
+	api.get('/intros', (req, res) => {
+		Songs.find({ intro: { $ne: null } }).populate('artist').sort('name').then(songs => {
+			res.json(songs);
+		}).catch(error => {
+			res.status(500).send(error);
+		});
+	});
+
+	api.get('/distortions', (req, res) => {
+		Songs.find({ distortions: { $ne: [] } }).populate('artist').sort('name').then(songs => {
+			res.json(songs);
+		}).catch(error => {
+			res.status(500).send(error);
+		});
+	});
+
+	api.get('/find-songs', (req, res) => {
+		Songs.find({ findSongs: { $ne: [] } }).populate('artist').sort('name').then(songs => {
+			res.json(songs);
+		}).catch(error => {
+			res.status(500).send(error);
+		});
+	});
+
 	api.get('/:id', (req, res) => {
 		Songs.findOne({ _id: req.params.id }).then(song => {
 			res.json(song);
