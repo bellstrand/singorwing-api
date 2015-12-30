@@ -14,6 +14,11 @@ let songs = new mongoose.Schema({
 		difficulty: { type: Number, required: true, min: 1, max: 10 }
 	}],
 
+	findSongs: [{
+		phrase: { type: String, required: true, trim: true },
+		difficulty: { type: Number, required: true, min: 1, max: 10 }
+	}],
+
 	intro: {
 		videoId: { type: String, trim: true },
 		start: { type: Number },
