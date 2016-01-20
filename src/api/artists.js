@@ -7,7 +7,10 @@ export default function() {
 	let api = Router();
 
 	api.get('', (req, res) => {
-		Artists.find().sort('name').then(artists => {
+		Artists.find()
+		.gte('difficulty', req.query.minDifficulty || 1)
+		.lte('difficulty', req.query.maxDifficulty || 10)
+		.sort('name').then(artists => {
 			res.json(artists);
 		}).catch(error => {
 			res.status(500).send(error);
