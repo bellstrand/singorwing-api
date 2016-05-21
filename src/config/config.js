@@ -1,7 +1,9 @@
+let argv = require('yargs').argv;
+
 export default {
 	port: 8000,
 
-	mongodb: 'mongodb://localhost:27017/singorwing',
+	mongodb: 'mongodb://' + (argv.db || 'localhost') + ':27017/singorwing',
 
 	session: {
 		name: 'singorwing-api-session',
@@ -9,4 +11,5 @@ export default {
 	},
 
 	storage: 'storage'
+
 }
