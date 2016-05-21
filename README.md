@@ -4,9 +4,6 @@
 
 ## Installation
 
-* Copy config/config-example.js to config/config.js
-
-
 ## Commands
 
 ```bash
