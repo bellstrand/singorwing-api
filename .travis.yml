@@ -3,28 +3,28 @@ sudo: required
 language: node_js
 
 node_js:
-	- "6"
+  - "6"
 
 services:
-	- docker
+  - docker
 
 script:
-	- npm run build
-	- npm prune --production
+  - npm run build
+  - npm prune --production
 
 after_success:
-	- export PR=https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST
-	- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo `curl -s $PR | jq -r .head.ref`; fi)
-	- echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH, TRAVIS_TAG=$TRAVIS_TAG"
+  - export PR=https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo `curl -s $PR | jq -r .head.ref`; fi)
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH, TRAVIS_TAG=$TRAVIS_TAG"
 
-	- export REPO=bellstrand/singorwing-api;
+  - export REPO=bellstrand/singorwing-api;
 
-	- if [ "$BRANCH" == "master" ] || [ "$TRAVIS_TAG" ]; then
-		docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-		if [ "$BRANCH" == "master" ]; then docker build -f Dockerfile -t $REPO:latest .; fi;
-		if [ "$TRAVIS_TAG" ]; then docker build -f Dockerfile -t $REPO:latest -t $REPO:$TRAVIS_TAG .; fi;
-		docker push $REPO;
-		fi
+  - if [ "$BRANCH" == "master" ] || [ "$TRAVIS_TAG" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    if [ "$BRANCH" == "master" ]; then docker build -f Dockerfile -t $REPO:latest .; fi;
+    if [ "$TRAVIS_TAG" ]; then docker build -f Dockerfile -t $REPO:latest -t $REPO:$TRAVIS_TAG .; fi;
+    docker push $REPO;
+    fi
 
 notifications:
-	email: false
+  email: false
