@@ -21,9 +21,10 @@ after_success:
   - echo "TRAVIS_TAG=$TRAVIS_TAG"
 
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    export TAG=`if [ -n "TRAVIS_TAG" ]; then echo "latest"; else echo $TRAVIS_TAG ; fi`
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     export REPO=bellstrand/singorwing-api;
-    docker build -f Dockerfile -t $REPO:$TRAVIS_TAG -t $REPO:latest .;
+    docker build -f Dockerfile -t $REPO:$TAG .;
     docker push $REPO;
     fi
 
