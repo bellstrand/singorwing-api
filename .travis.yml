@@ -16,7 +16,7 @@ after_success:
   - if [ "TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     export REPO=bellstrand/singorwing-api;
-    docker build -f Dockerfile -t $REPO:$TRAVIS_TAG -t $REPO:$latest .;
+    docker build -f Dockerfile -t $REPO:$TRAVIS_TAG -t $REPO:latest .;
     docker push $REPO;
     fi
 
