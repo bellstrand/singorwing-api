@@ -5,7 +5,7 @@ export default function() {
 	let api = Router();
 
 	api.post('/login', passport.authenticate('local'), (req, res) => {
-		res.json({success: true});
+		res.json({ success: true });
 	});
 
 	return api;
