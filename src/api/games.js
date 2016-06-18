@@ -55,7 +55,23 @@ export default function() {
 
 	api.get('/reset', (req, res) => {
 		res.json({ success: true });
-	})
+	});
+
+	api.get('/next/:game', (req, res) => {
+		req.session.games[req.params.game].current++;
+		if(req.session.games[req.params.game].current >= req.session.games[req.params.game].list.length) {
+			req.session.games[req.params.game].current = 0;
+		}
+		res.json({ _id: req.session.games[req.params.game].list[req.session.games[req.params.game].current] });
+	});
+
+	api.get('/prev/:game', (req, res) => {
+		req.session.games[req.params.game].current--;
+		if(req.session.games[req.params.game].current < 0) {
+			req.session.games[req.params.game].current = req.session.games[req.params.game].list.length - 1;
+		}
+		res.json({ _id: req.session.games[req.params.game].list[req.session.games[req.params.game].current] });
+	});
 
 	return api;
 }
