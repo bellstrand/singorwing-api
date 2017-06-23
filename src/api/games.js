@@ -4,6 +4,8 @@ import DuelThemes from '../models/duel-themes';
 import FindSongs from '../models/find-songs';
 import Intros from '../models/intros';
 import Songs from '../models/songs';
+import * as websocket from '../websocket';
+import shuffle from '../utils/shuffle';
 
 export default function() {
 	let api = Router();
@@ -15,35 +17,35 @@ export default function() {
 		promisses.push(Artists.find().distinct('_id').then(artists => {
 			games.artists = {
 				current: 0,
-				list: artists
+				list: shuffle(artists)
 			};
 		}).catch(() => {}));
 
 		promisses.push(DuelThemes.find().distinct('_id').then(duelThemes => {
 			games.duelThemes = {
 				current: 0,
-				list: duelThemes
+				list: shuffle(duelThemes)
 			};
 		}).catch(() => {}));
 
 		promisses.push(FindSongs.find().distinct('_id').then(findSongs => {
 			games.findSongs = {
 				current: 0,
-				list: findSongs
+				list: shuffle(findSongs)
 			};
 		}).catch(() => {}));
 
 		promisses.push(Intros.find().distinct('_id').then(intros => {
 			games.intros = {
 				current: 0,
-				list: intros
+				list: shuffle(intros)
 			};
 		}).catch(() => {}));
 
 		promisses.push(Songs.find().distinct('_id').then(songs => {
 			games.songs = {
 				current: 0,
-				songs: songs
+				list: shuffle(songs)
 			};
 		}).catch(() => {}));
 
@@ -62,6 +64,7 @@ export default function() {
 		if(req.session.games[req.params.game].current >= req.session.games[req.params.game].list.length) {
 			req.session.games[req.params.game].current = 0;
 		}
+		websocket.send({ _id: req.session.games[req.params.game].list[req.session.games[req.params.game].current] });
 		res.json({ _id: req.session.games[req.params.game].list[req.session.games[req.params.game].current] });
 	});
 
@@ -70,6 +73,7 @@ export default function() {
 		if(req.session.games[req.params.game].current < 0) {
 			req.session.games[req.params.game].current = req.session.games[req.params.game].list.length - 1;
 		}
+		websocket.send({ _id: req.session.games[req.params.game].list[req.session.games[req.params.game].current] });
 		res.json({ _id: req.session.games[req.params.game].list[req.session.games[req.params.game].current] });
 	});
 
